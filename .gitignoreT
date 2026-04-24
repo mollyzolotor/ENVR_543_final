@@ -1,0 +1,11 @@
+.DS_Store
+data/
+models/
+outputs/
+*.csv
+*.pkl
+
+.DS_Store
+data/
+models/
+outputs/
