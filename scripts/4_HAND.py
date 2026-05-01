@@ -6,7 +6,7 @@ This script:
 
 Notes:
 
-    -The raster is not included in the Github repository due to large file size but is publicly available from 
+    -The raster is not included in the Github repository due to large file size but is publicly available from NASA Earthdata.
             - Access data here: https://www.earthdata.nasa.gov/learn/gis/storymaps/global-30-m-hand
             - 30 m x 30 m resolution
 """
