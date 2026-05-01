@@ -6,7 +6,7 @@ This script:
     4. Saves the trained model and variable importance table for future use.
 
 Notes:
-    -The csv files for microsoft and redcross building points are included in the github repository as "microsoft_points_processed.csv" and "redcross_points_processed.csv". These are the outputs from the previous script (7_elevation.py) but then combined with distance to nearest stream ("distance") which was processed in QGIS (more details on this in the README).
+    -The csv files for microsoft and redcross building points are included in the carolina digital repository as "microsoft_points_processed.csv" and "redcross_points_processed.csv". These are the outputs from the previous script 7_elevation.py but then combined with distance to nearest stream ("distance") which was processed in QGIS (more details on this in the README).
     - The random forest model is trained on data that has already been filtered to only include rows with damage classifications of Affected, Minor, Major, or Destroyed. The "Revisit" and blank classifications were removed before modeling. The target variable is treated as ordinal, where Affected/Minor = 1 (low damage), Major = 2 (moderate damage), and Destroyed = 3 (severe damage). The model predicts a continuous value which is then converted to the nearest class for evaluation.
 """
 

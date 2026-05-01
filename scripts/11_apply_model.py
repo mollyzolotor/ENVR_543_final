@@ -1,3 +1,18 @@
+"""
+This script:
+    1. Reads in the finalized csv file for redcross building points.
+    2. Reads in the Microsoft building points csv file.
+    3. Loads the trained random forest models for both binary damage prediction and severity prediction.
+    4. Applies the binary damage model to the Microsoft data to predict damaged vs not damaged.
+    5. For the Microsoft rows predicted as damaged, applies the severity model to predict low/moderate/severe damage.
+    6. Standardizes the predicted damage classes for Microsoft and the observed damage classes for Red Cross into a common scheme of no damage / low / moderate / severe / unknown.
+    7. Combines the Microsoft and Red Cross datasets into one final output file with a consistent set of columns and a source label indicating whether each row is a Microsoft prediction or a Red Cross observation.
+
+Notes:
+        -The csv files for microsoft and redcross building points are included in the carolina digital repository as "microsoft_points_processed.csv" and "redcross_points_processed.csv". These are the outputs from the previous script 7_elevation.py but then combined with distance to nearest stream ("distance") which was processed in QGIS (more details on this in the README).
+"""
+
+
 from click import Path
 import pandas as pd
 import joblib
