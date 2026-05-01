@@ -26,6 +26,21 @@ Data used in the workflow include:
 - NLCD fractional impervious surface: https://www.mrlc.gov/data
 - County Economic Vitality Index data
 
+
+## GIS data Processing Workflow
+
+Several environmental variables were derived using QGIS due to the size and format of raster datasets.
+
+Key steps included:
+
+- Reprojecting all spatial layers to a consistent coordinate reference system (CRS)
+- Clipping rasters (DEM, HAND, land cover, impervious surface) to study counties
+- Calculating slope from DEM
+- Computing distance-based variables (e.g., proximity to water features)
+- Exporting sampled point data to CSV
+
+These steps were fermored in QGIS and are not fully scripted in this repository. However, the derived variables at each building point are included in the output data linked in the next section .
+
 ## Output Data Location
 
 We have included several processed databases in a one drive folder that all unc affiliates can access here: https://adminliveunc-my.sharepoint.com/:f:/g/personal/rvanness_ad_unc_edu/IgBX1YdTknQsRqKNVrBLWKDDAXM2_g2HrhG7zYX3QRR1kjQ?e=LdteME
