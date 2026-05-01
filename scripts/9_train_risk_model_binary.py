@@ -30,7 +30,7 @@ MODEL_DIR = Path("/Users/mzolotor/ENVR_543_Final_Project/models/") #For Github: 
 
 
 def read_redcross_data():
-    file_path = DATA_DIR / "redcross_points_processed.csv"
+    file_path = DATA_DIR / "redcross_points_H.csv"
     df = pd.read_csv(file_path)
     return df
 
