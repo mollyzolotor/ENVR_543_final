@@ -1,5 +1,4 @@
 .DS_Store
 data/
-models/*
-!models/.gitkeep
+models/
 outputs/
