@@ -13,11 +13,11 @@ Notes:
 """
 
 
-from click import Path
 import pandas as pd
 import joblib
+from pathlib import Path
 
-DATA_DIR = Path("/Users/mzolotor/ENVR_543_Final_Project/data/") #For Github: update this to the actual path where your data is stored
+DATA_DIR = Path("/Users/mzolotor/ENVR_543_Final_Project./data/") #For Github: update this to the actual path where your data is stored
 MODEL_DIR = Path("/Users/mzolotor/ENVR_543_Final_Project/models/") #For Github: update this to the actual path where you want to save your model and feature columns
 OUTPUT_DIR = Path("/Users/mzolotor/ENVR_543_Final_Project/output/") #For Github: update this to the actual path where you want to save your output files
 
@@ -63,6 +63,7 @@ MICROSOFT_COLUMNS_TO_KEEP_AND_RENAME = {
     "lon": "lon",
     "HAND_m": "HAND_m",
     "slope": "slope",
+    "distance": "distance_to_stream",
     "precipitation": "precipitation",
     "precipitation_72H": "precipitation_72H",
     "impervious_surface": "impervious",
@@ -83,6 +84,7 @@ REDCROSS_COLUMNS_TO_KEEP_AND_RENAME = {
     "x": "lon",
     "HAND_m": "HAND_m",
     "slope": "slope",
+    "distance": "distance_to_stream",
     "precipitation": "precipitation",
     "precipitation_72H": "precipitation_72H",
     "impervious_surface": "impervious",

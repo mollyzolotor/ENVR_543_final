@@ -11,10 +11,9 @@ Notes:
 """
 
 
-from joblib.numpy_pickle import Path
 import pandas as pd
 import numpy as np
-
+from pathlib import Path
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import (
@@ -25,6 +24,8 @@ from sklearn.metrics import (
 )
 from sklearn.utils import compute_sample_weight
 import joblib
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 DATA_DIR = Path("/Users/mzolotor/ENVR_543_Final_Project/data/") #For Github: update this to the actual path where your data is stored
 MODEL_DIR = Path("/Users/mzolotor/ENVR_543_Final_Project/models/") #For Github: update this to the actual path where you want to save your model and feature columns
@@ -139,6 +140,37 @@ def evaluate_model(y_test, y_pred_ord, reverse_damage_map):
         zero_division=0
     )
 
+        # -------- CONFUSION MATRIX (COUNTS) --------
+    plt.figure(figsize=(6,5))
+    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues",
+                xticklabels=label_names,
+                yticklabels=label_names)
+
+    plt.xlabel("Predicted")
+    plt.ylabel("Actual")
+    plt.title("Confusion Matrix (Counts)")
+
+    plt.tight_layout()
+    plt.savefig(MODEL_DIR / "confusion_matrix_counts_ordinal.png", dpi=300)
+    plt.show()
+
+
+    # -------- CONFUSION MATRIX (NORMALIZED) --------
+    cm_norm = cm / cm.sum(axis=1)[:, None]
+
+    plt.figure(figsize=(6,5))
+    sns.heatmap(cm_norm, annot=True, fmt=".2f", cmap="Blues",
+                xticklabels=label_names,
+                yticklabels=label_names)
+
+    plt.xlabel("Predicted")
+    plt.ylabel("Actual")
+    plt.title("Confusion Matrix (Row Normalized)")
+
+    plt.tight_layout()
+    plt.savefig(MODEL_DIR / "confusion_matrix_normalized_ordinal.png", dpi=300)
+    plt.show()
+
     print("\n--- ORDINAL MODEL PERFORMANCE ---")
     print(f"Accuracy: {accuracy:.4f}")
     print(f"Mean Absolute Error: {mae:.4f}")
@@ -223,8 +255,8 @@ def main():
     )
     model.fit(X_train, y_train, sample_weight=weights)
 
-    joblib.dump(model, MODEL_DIR + "/damage_model_classes.pkl")
-    joblib.dump(feature_cols, MODEL_DIR + "/feature_cols_classes.pkl")
+    joblib.dump(model, MODEL_DIR / "damage_model_classes.pkl")
+    joblib.dump(feature_cols, MODEL_DIR / "feature_cols_classes.pkl")
 
     y_pred_continuous = model.predict(X_test)
     y_pred_ord = convert_predictions_to_classes(y_pred_continuous)

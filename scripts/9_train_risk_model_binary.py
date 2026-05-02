@@ -11,9 +11,13 @@ Notes:
 """
 
 
-from click import Path
+
+from matplotlib import cm
 import pandas as pd
 import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+from pathlib import Path
 
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
@@ -112,16 +116,27 @@ def evaluate_model(model, X_val, y_val):
 
     print("\n--- MODEL PERFORMANCE ---")
     print("Accuracy:", accuracy_score(y_val, y_pred))
-    print("\nConfusion Matrix:")
-    print(confusion_matrix(y_val, y_pred))
+    cm = confusion_matrix(y_val, y_pred)
+    print(cm)
+
+    plt.figure(figsize=(5,4))
+    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues",
+            xticklabels=["No Damage", "Damage"],
+            yticklabels=["No Damage", "Damage"])
+
+    plt.xlabel("Predicted")
+    plt.ylabel("Actual")
+    plt.title("Confusion Matrix")
+
+    plt.tight_layout()
+    plt.savefig(MODEL_DIR / "confusion_matrix.png", dpi=300)
+    plt.show()
+
     print("\nClassification Report:")
     print(classification_report(y_val, y_pred))
 
-    try:
-        auc = roc_auc_score(y_val, y_prob)
-        print("ROC AUC:", auc)
-    except ValueError:
-        print("ROC AUC could not be calculated.")
+    auc = roc_auc_score(y_val, y_prob)
+    print("ROC AUC:", auc)
 
     importance_df = pd.DataFrame({
         "variable": X_val.columns,
@@ -185,19 +200,19 @@ def main():
 
     model, X_train, X_val, y_train, y_val = train_random_forest(X, y)
 
-    joblib.dump(model, MODEL_DIR + "/damage_model_binary.pkl")
-    joblib.dump(predictor_cols, MODEL_DIR + "/feature_cols_binary.pkl")
+    joblib.dump(model, MODEL_DIR / "damage_model_binary.pkl")
+    joblib.dump(predictor_cols, MODEL_DIR / "feature_cols_binary.pkl")
 
     importance_df = evaluate_model(model, X_val, y_val)
 
    
     model_df.to_csv(
-        MODEL_DIR + "/redcross_binary_model_table.csv",
+        MODEL_DIR / "redcross_binary_model_table.csv",
         index=False
     )
 
     importance_df.to_csv(
-        MODEL_DIR + "/random_forest_variable_importance.csv",
+        MODEL_DIR / "random_forest_variable_importance.csv",
         index=False
     )
 
