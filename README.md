@@ -1,5 +1,7 @@
 # Hurricane Helene Flood Damage Modeling in Western North Carolina
 
+Madalyn Finn, Riley VanNess, Molly Zolotor
+
 This project uses spatial data and machine learning to model building-level flood damage from Hurricane Helene in Western North Carolina. The workflow combines training and validation data from Red Cross windshield survey damage observations, and precipitation, terrain, hydrologic, land cover, and impervious surface variables to predict flood damage presence and severity and building points in thirteen Western North Carolina counties. The predicted building damage is aggregated and averaged across each county, and plotted against change in economic vitality index for each county. This is used to suggest counties with high predicted damage and low economic recovery, which may be useful is aid allocation.
 
 ## Project Goals
